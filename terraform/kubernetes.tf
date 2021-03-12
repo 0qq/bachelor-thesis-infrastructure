@@ -47,7 +47,7 @@ resource "aws_eip_association" "master" {
 resource "aws_instance" "k8s_master" {
   ami              = data.aws_ami.latest_ubuntu.id
   key_name         = aws_key_pair.default.key_name
-  instance_type    = var.master_instance_type
+  instance_type    = var.k8s_master_instance_type
   subnet_id        = aws_subnet.main_public.id
   user_data_base64 = data.template_cloudinit_config.master_config.rendered
 
@@ -66,8 +66,8 @@ resource "aws_instance" "k8s_master" {
 resource "aws_instance" "k8s_worker_pool" {
   ami              = data.aws_ami.latest_ubuntu.id
   key_name         = aws_key_pair.default.key_name
-  instance_type    = var.worker_instance_type
-  count            = var.worker_count
+  instance_type    = var.k8s_worker_instance_type
+  count            = var.k8s_worker_count
   subnet_id        = aws_subnet.main_public.id
   user_data_base64 = data.template_cloudinit_config.worker_config.rendered
 
