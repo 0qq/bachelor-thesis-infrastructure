@@ -44,3 +44,19 @@ resource "aws_security_group" "ingress_k8s_api_server" {
 
   tags = local.tags
 }
+
+
+resource "aws_security_group" "ingress_jenkins" {
+  name        = "ingress_jenkins"
+  description = "Allow ingress traffic to jenkins"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+  }
+
+  tags = local.tags
+}
