@@ -3,11 +3,6 @@ locals {
 }
 
 
-provider "aws" {
-  region = var.aws_region
-}
-
-
 resource "aws_key_pair" "default" {
   key_name   = var.key_name
   public_key = file(var.public_key_path)
@@ -16,7 +11,7 @@ resource "aws_key_pair" "default" {
 
 
 # Generate bootstrap token
-# See https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/
+# https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/
 resource "random_string" "token_id" {
   length  = 6
   special = false
@@ -100,7 +95,7 @@ resource "null_resource" "k8s_cluster_init" {
 
   # Check bootstrap results
   provisioner "local-exec" {
-    command = templatefile("${path.module}/bootstrap_data/bootstrap_check.tpl", {
+    command = templatefile("${path.module}/bootstrap_data/k8s_bootstrap_check.tpl", {
       private_key       = var.private_key_path,
       master_public_ip  = aws_eip.k8s_master.public_ip,
       worker_public_ips = aws_instance.k8s_worker_pool[*].public_ip
