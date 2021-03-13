@@ -48,7 +48,7 @@ variable "k8s_worker_count" {
 }
 
 
-variable "kubeconfig_name" {
+variable "kubeconfig_path" {
   type        = string
   description = "Local path for kubeconfig file"
   default     = "kube-config.yml"

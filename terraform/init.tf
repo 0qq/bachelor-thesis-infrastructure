@@ -13,11 +13,6 @@ terraform {
 }
 
 
-provider "aws" {
-  region = var.aws_region
-}
-
-
 # Create remote backend if required
 resource "aws_s3_bucket" "tf_backend" {
   bucket_prefix = "tf-backend-"
