@@ -24,6 +24,28 @@ resource "aws_subnet" "main_public" {
 }
 
 
+resource "aws_subnet" "main_private" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.2.0/24"
+
+  tags = merge(local.tags, { Name = "${var.project}_PRIVATE_SUB" })
+}
+
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.main_public.id
+
+  depends_on = [aws_internet_gateway.main_gw]
+}
+
+
+resource "aws_eip" "nat" {
+  vpc  = true
+  tags = local.tags
+}
+
+
 resource "aws_route_table" "internet_access" {
   vpc_id = aws_vpc.main.id
 
@@ -36,7 +58,26 @@ resource "aws_route_table" "internet_access" {
 }
 
 
+resource "aws_route_table" "nat_access" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.nat.id
+  }
+
+  tags = merge(local.tags, { Name = "${var.project}_RTB" })
+
+}
+
+
 resource "aws_route_table_association" "internet_access" {
   subnet_id      = aws_subnet.main_public.id
   route_table_id = aws_route_table.internet_access.id
+}
+
+
+resource "aws_route_table_association" "nat" {
+  subnet_id      = aws_subnet.main_private.id
+  route_table_id = aws_route_table.nat_access.id
 }

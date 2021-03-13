@@ -16,7 +16,6 @@ module "kubernetes" {
   key_name          = aws_key_pair.default.key_name
   private_key_path  = var.private_key_path
 
-
   master_instance_type = var.k8s_master_instance_type
   master_subnet_id     = aws_subnet.main_public.id
   master_vpc_security_group_ids = [
@@ -27,7 +26,7 @@ module "kubernetes" {
 
   worker_instance_type  = var.k8s_worker_instance_type
   worker_count          = var.k8s_worker_count
-  worker_pool_subnet_id = aws_subnet.main_public.id
+  worker_pool_subnet_id = aws_subnet.main_private.id
   worker_vpc_security_group_ids = [
     aws_security_group.ingress_ssh.id,
     aws_security_group.egress.id

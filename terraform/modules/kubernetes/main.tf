@@ -67,18 +67,14 @@ resource "aws_instance" "worker_pool" {
 resource "null_resource" "cluster_init" {
   # Changes to any instance of the cluster requires re-provisioning
   triggers = {
-    cluster_instance_ids = join(",", concat(
-      [aws_instance.master.id],
-      aws_instance.worker_pool[*].id)
-    )
+    cluster_instance_ids = join(",", concat( [aws_instance.master.id]))
   }
 
   # Check bootstrap results
   provisioner "local-exec" {
     command = templatefile("${path.module}/data/bootstrap_check.tpl", {
       private_key       = var.private_key_path,
-      master_public_ip  = aws_eip.master.public_ip,
-      worker_public_ips = aws_instance.worker_pool[*].public_ip
+      master_public_ip  = aws_eip.master.public_ip
     })
   }
 }
