@@ -38,7 +38,6 @@ module "kubernetes_worker_pool" {
   master_private_ip = module.kubernetes_master.private_ip
   bootstrap_token   = module.kubernetes_master.bootstrap_token
 
-
   worker_instance_type  = var.k8s_worker_instance_type
   worker_count          = var.k8s_worker_count
   worker_pool_subnet_id = aws_subnet.main_private.id
