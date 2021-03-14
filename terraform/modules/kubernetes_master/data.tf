@@ -1,4 +1,4 @@
-data "template_cloudinit_config" "master_config" {
+data "template_cloudinit_config" "master_userdata" {
   part {
     content_type = "text/x-shellscript"
     content      = file("${path.module}/data/common_init.sh")
