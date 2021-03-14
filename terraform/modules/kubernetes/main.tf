@@ -1,5 +1,5 @@
 locals {
-  tags  = merge(var.tags, { module = "kubernetes" })
+  tags  = merge(var.tags, { Terraform_module  = "kubernetes" })
   token = "${random_string.token_id.result}.${random_string.token_secret.result}"
 }
 # Generate bootstrap token

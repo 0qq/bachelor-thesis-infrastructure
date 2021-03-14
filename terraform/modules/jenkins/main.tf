@@ -1,5 +1,5 @@
 locals {
-  tags = merge(var.tags, { terraform_module = "jenkins" })
+  tags = merge(var.tags, { Terraform_module = "jenkins" })
 }
 
 resource "aws_instance" "master" {
