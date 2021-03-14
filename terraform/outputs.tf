@@ -1,5 +1,5 @@
 output "kubernetes_master_public_ip" {
-  value = module.kubernetes.master_public_ip
+  value = module.kubernetes_master.public_ip
 }
 
 

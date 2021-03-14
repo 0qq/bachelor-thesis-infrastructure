@@ -8,8 +8,8 @@ provider "aws" {
 }
 
 
-module "kubernetes" {
-  source = "./modules/kubernetes"
+module "kubernetes_master" {
+  source = "./modules/kubernetes_master"
 
   kubeconfig_path   = var.kubeconfig_path
   instance_image_id = data.aws_ami.latest_ubuntu.id
@@ -23,6 +23,21 @@ module "kubernetes" {
     aws_security_group.egress.id,
     aws_security_group.ingress_k8s_api_server.id
   ]
+
+  tags = local.tags
+}
+
+
+module "kubernetes_worker_pool" {
+  source = "./modules/kubernetes_worker_pool"
+
+  instance_image_id = data.aws_ami.latest_ubuntu.id
+  key_name          = aws_key_pair.default.key_name
+  private_key_path  = var.private_key_path
+
+  master_private_ip = module.kubernetes_master.private_ip
+  bootstrap_token   = module.kubernetes_master.bootstrap_token
+
 
   worker_instance_type  = var.k8s_worker_instance_type
   worker_count          = var.k8s_worker_count

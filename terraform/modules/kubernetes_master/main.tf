@@ -1,7 +1,9 @@
 locals {
-  tags  = merge(var.tags, { Terraform_module  = "kubernetes" })
-  token = "${random_string.token_id.result}.${random_string.token_secret.result}"
+  tags  = merge(var.tags, { Terraform_module  = "kubernetes_master" })
+  bootstrap_token = "${random_string.token_id.result}.${random_string.token_secret.result}"
 }
+
+
 # Generate bootstrap token
 # https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/
 resource "random_string" "token_id" {
@@ -43,24 +45,6 @@ resource "aws_instance" "master" {
   lifecycle { create_before_destroy = true }
 
   tags = merge(local.tags, { Name = "Kubernetes_master" })
-}
-
-
-resource "aws_instance" "worker_pool" {
-  ami              = var.instance_image_id
-  key_name         = var.key_name
-  instance_type    = var.worker_instance_type
-  count            = var.worker_count
-  subnet_id        = var.worker_pool_subnet_id
-  user_data_base64 = data.template_cloudinit_config.worker_config.rendered
-
-  vpc_security_group_ids = var.worker_vpc_security_group_ids
-
-  depends_on = [aws_instance.master]
-
-  lifecycle { create_before_destroy = true }
-
-  tags = merge(local.tags, { Name = "Kubernetes_worker_${count.index}" })
 }
 
 
