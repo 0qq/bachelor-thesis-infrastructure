@@ -36,22 +36,22 @@ module "kubernetes" {
 }
 
 
-module "jenkins" {
-  source            = "./modules/jenkins"
-  instance_image_id = data.aws_ami.latest_ubuntu.id
-  key_name          = aws_key_pair.default.key_name
+# module "jenkins" {
+#   source            = "./modules/jenkins"
+#   instance_image_id = data.aws_ami.latest_ubuntu.id
+#   key_name          = aws_key_pair.default.key_name
 
-  master_instance_type = var.jenkins_master_instance_type
-  master_subnet_id     = aws_subnet.main_public.id
+#   master_instance_type = var.jenkins_master_instance_type
+#   master_subnet_id     = aws_subnet.main_public.id
 
-  master_vpc_security_group_ids = [
-    aws_security_group.ingress_ssh.id,
-    aws_security_group.egress.id,
-    aws_security_group.ingress_jenkins.id
-  ]
+#   master_vpc_security_group_ids = [
+#     aws_security_group.ingress_ssh.id,
+#     aws_security_group.egress.id,
+#     aws_security_group.ingress_jenkins.id
+#   ]
 
-  tags = local.tags
-}
+#   tags = local.tags
+# }
 
 
 resource "aws_key_pair" "default" {
