@@ -4,6 +4,18 @@ variable "aws_region" {
 }
 
 
+variable "availability_zone_1" {
+  description = "Availability zones to launch infrastructure"
+  type        = string
+}
+
+
+variable "availability_zone_2" {
+  description = "Second availability zone to launch infrastructure"
+  type        = string
+}
+
+
 variable "tags" {
   description = "Common tags for all resources"
   type        = map(any)

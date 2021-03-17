@@ -39,7 +39,7 @@ resource "aws_instance" "master" {
   instance_type    = var.master_instance_type
   subnet_id        = var.master_subnet_id
   user_data_base64 = data.template_cloudinit_config.master_userdata.rendered
-  iam_instance_profile = file("${path.module}/data/iam_policy.json")
+  # iam_instance_profile = 
 
   vpc_security_group_ids = var.master_vpc_security_group_ids
 

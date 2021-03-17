@@ -1,7 +1,7 @@
 resource "aws_security_group" "ingress_ssh" {
   name        = "ingress_ssh"
   description = "Allow ingress ssh traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
@@ -17,7 +17,7 @@ resource "aws_security_group" "ingress_ssh" {
 resource "aws_security_group" "egress" {
   name        = "egress"
   description = "Allow all egress traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.vpc.vpc_id
 
   egress {
     from_port   = 0
@@ -33,7 +33,7 @@ resource "aws_security_group" "egress" {
 resource "aws_security_group" "ingress_k8s_api_server" {
   name        = "ingress_k8s_api_server"
   description = "Allow ingress traffic to k8s api server"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
@@ -49,7 +49,7 @@ resource "aws_security_group" "ingress_k8s_api_server" {
 resource "aws_security_group" "ingress_jenkins" {
   name        = "ingress_jenkins"
   description = "Allow ingress traffic to jenkins"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     cidr_blocks = ["0.0.0.0/0"]

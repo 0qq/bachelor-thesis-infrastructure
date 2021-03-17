@@ -5,4 +5,6 @@ k8s_worker_instance_type     = "t3.micro"
 k8s_worker_count             = 2
 jenkins_master_instance_type = "t3.micro"
 # jenkins_worker_instance_type = "t3.micro"
-aws_region = "eu-north-1"
+aws_region          = "eu-north-1"
+availability_zone_1 = "eu-north-1a"
+availability_zone_2 = "eu-north-1b"

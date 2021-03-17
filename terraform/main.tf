@@ -8,6 +8,13 @@ provider "aws" {
 }
 
 
+resource "aws_key_pair" "default" {
+  key_name   = var.key_name
+  public_key = file(var.public_key_path)
+  tags       = local.tags
+}
+
+
 module "kubernetes_master" {
   source = "./modules/kubernetes_master"
 
@@ -17,7 +24,7 @@ module "kubernetes_master" {
   private_key_path  = var.private_key_path
 
   master_instance_type = var.k8s_master_instance_type
-  master_subnet_id     = aws_subnet.main_public.id
+  master_subnet_id     = module.public_subnet_az1.subnet_id
   master_vpc_security_group_ids = [
     aws_security_group.ingress_ssh.id,
     aws_security_group.egress.id,
@@ -40,7 +47,7 @@ module "kubernetes_worker_pool" {
 
   worker_instance_type  = var.k8s_worker_instance_type
   worker_count          = var.k8s_worker_count
-  worker_pool_subnet_id = aws_subnet.main_private.id
+  worker_pool_subnet_id = module.private_subnet_az1.subnet_id
   worker_vpc_security_group_ids = [
     aws_security_group.ingress_ssh.id,
     aws_security_group.egress.id
@@ -56,7 +63,7 @@ module "kubernetes_worker_pool" {
 #   key_name          = aws_key_pair.default.key_name
 
 #   master_instance_type = var.jenkins_master_instance_type
-#   master_subnet_id     = aws_subnet.main_public.id
+#   master_subnet_id     = module.public_subnet_az1.subnet_id
 
 #   master_vpc_security_group_ids = [
 #     aws_security_group.ingress_ssh.id,
@@ -66,10 +73,3 @@ module "kubernetes_worker_pool" {
 
 #   tags = local.tags
 # }
-
-
-resource "aws_key_pair" "default" {
-  key_name   = var.key_name
-  public_key = file(var.public_key_path)
-  tags       = local.tags
-}
