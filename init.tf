@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "3.30.0"
     }
+    gitlab = {
+      source  = "gitlabhq/gitlab"
+      version = "3.5.0"
+    }
     local = {
       source  = "hashicorp/local"
       version = "2.1.0"
@@ -34,7 +38,7 @@ resource "local_file" "backend" {
     backend "s3" {
       region = "${var.aws_region}"
       bucket = "${aws_s3_bucket.tf_backend[count.index].bucket}"
-      key    = "${var.project}.tfstate"
+      key    = "${var.gitlab_project_name}.tfstate"
     }
   }
   EOF
