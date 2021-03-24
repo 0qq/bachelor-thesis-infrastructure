@@ -19,7 +19,6 @@ remote backend nor use vars to configure backend. To solve terraform chicken egg
 the very first terraform run initialize local backend, which creates "backend.tf"
 with configured s3 backend, second init reconfigures backend to remote.
 ```
-cd terraform/
 terraform init
 terraform apply
 terraform init # configure remote backend
