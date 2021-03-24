@@ -36,3 +36,5 @@ networking:
   dnsDomain: cluster.local
   serviceSubnet: 10.96.0.0/12
 scheduler: {}
+
+# vim: filetype=yaml

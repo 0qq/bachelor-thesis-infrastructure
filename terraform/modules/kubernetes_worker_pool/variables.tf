@@ -8,3 +8,4 @@ variable "worker_vpc_security_group_ids" {}
 variable "private_key_path" {}
 variable "master_private_ip" {}
 variable "bootstrap_token" {}
+variable "iam_profile_name" {}

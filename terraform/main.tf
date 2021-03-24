@@ -22,6 +22,7 @@ module "kubernetes_master" {
   instance_image_id = data.aws_ami.latest_ubuntu.id
   key_name          = aws_key_pair.default.key_name
   private_key_path  = var.private_key_path
+  iam_profile_name    = module.kubernetes_master_iam.profile_name
 
   master_instance_type = var.k8s_master_instance_type
   master_subnet_id     = module.public_subnet_az1.subnet_id
@@ -41,17 +42,44 @@ module "kubernetes_worker_pool" {
   instance_image_id = data.aws_ami.latest_ubuntu.id
   key_name          = aws_key_pair.default.key_name
   private_key_path  = var.private_key_path
+  iam_profile_name    = module.kubernetes_worker_iam.profile_name
 
   master_private_ip = module.kubernetes_master.private_ip
   bootstrap_token   = module.kubernetes_master.bootstrap_token
 
   worker_instance_type  = var.k8s_worker_instance_type
   worker_count          = var.k8s_worker_count
-  worker_pool_subnet_id = module.private_subnet_az1.subnet_id
+  worker_pool_subnet_id = module.public_subnet_az1.subnet_id
   worker_vpc_security_group_ids = [
     aws_security_group.ingress_ssh.id,
     aws_security_group.egress.id
   ]
+
+  tags = local.tags
+}
+
+
+module "kubernetes_master_iam" {
+  role_name    = "K8s_master"
+  policy_name  = "K8s_master"
+  profile_name = "K8s_master"
+
+  source             = "./modules/iam"
+  assume_role_policy = file("data/ec2_assume_role_policy.json")
+  policy             = file("data/master_iam_policy.json")
+
+  tags = local.tags
+}
+
+
+module "kubernetes_worker_iam" {
+  role_name    = "K8s_worker"
+  policy_name  = "K8s_worker"
+  profile_name = "K8s_worker"
+
+  source             = "./modules/iam"
+  assume_role_policy = file("data/ec2_assume_role_policy.json")
+  policy             = file("data/worker_iam_policy.json")
 
   tags = local.tags
 }
