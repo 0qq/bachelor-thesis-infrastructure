@@ -1,7 +1,7 @@
 # Bachelor thesis infrastructure
 This repository contains infrastructure setup for my bachelor thesis.
 
-This branch contains my experiments with kubeadm on AWS. All working expect load balancer which
+This branch contains my experiments with kubeadm on AWS. All working except load balancer which
 requires cloud controller manager I failed to setup in first time.
 The second point is unexpired token managed by terraform which is huge security issue.
 The third point is kops existing. With kops all I did here can be done easier.
