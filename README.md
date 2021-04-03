@@ -1,5 +1,4 @@
 # Bachelor thesis infrastructure
-This repository contains infrastructure setup for my bachelor thesis.
 
 This branch contains my experiments with kubeadm on AWS. All K8s components working except load balancer which
 requires cloud controller manager I failed to setup in first time.
