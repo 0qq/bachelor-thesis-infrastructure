@@ -1,7 +1,8 @@
 # Bachelor thesis infrastructure
 This repository contains infrastructure setup for my bachelor thesis.
 
-Currently WIP.
+Currently **WIP**. You should check [k8s_kubeadm](https://github.com/0qq/bachelor-thesis-infrastructure/tree/k8s_kubeadm)
+branch.
 
 ## Requirements
 - terraform
