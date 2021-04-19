@@ -82,6 +82,6 @@ resource "aws_iam_role_policy_attachment" "AWSLoadBalancerControllerIAMPolicy" {
 
 
 resource "aws_iam_policy" "AWSLoadBalancerControllerIAMPolicy" {
-  name = "AWSLoadBalancerControllerIAMPolicy"
+  name   = "AWSLoadBalancerControllerIAMPolicy"
   policy = file("${path.module}/lb-controller-iam-policy.json")
 }

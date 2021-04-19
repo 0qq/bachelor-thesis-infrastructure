@@ -43,9 +43,9 @@ resource "aws_subnet" "this" {
   map_public_ip_on_launch = true
 
   tags = merge(local.tags, {
-    Name                     = "subnet-${each.key}",
+    Name                                          = "subnet-${each.key}",
     "kubernetes.io/cluster/<${var.cluster_name}>" = "shared",
-    "kubernetes.io/role/elb" = 1
+    "kubernetes.io/role/elb"                      = 1
   })
 }
 
