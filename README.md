@@ -1,10 +1,11 @@
 # Bachelor thesis infrastructure
-This repository contains infrastructure setup for my bachelor thesis.
+This repository contains infrastructure for my bachelor thesis.
 
 Currently WIP.
 
 ## Requirements
-- terraform
+- terraform >=0.14
+- aws-cli2
 
 ### Instructions
 Export aws credentials
@@ -20,7 +21,7 @@ the very first terraform run initialize local backend, which creates "backend.tf
 with configured s3 backend, second init reconfigures backend to remote.
 ```
 terraform init
-terraform apply
+terraform apply --var-file=example.tfvars
 terraform init # configure remote backend
 ```
 
