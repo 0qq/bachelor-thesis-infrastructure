@@ -1,3 +1,5 @@
+# variables.tf
+
 variable "enable_terraform_remote_backend" {
   description = "Enable remote backend to store terraform state files"
   type        = bool

@@ -1,3 +1,5 @@
+# modules/aws/vpc/main.tf
+
 locals {
   tags            = merge(var.tags, { Terraform_module = "vpc" })
   subnet_settings = zipmap(var.subnet_azs, var.subnet_cidr_blocks)

@@ -1,3 +1,5 @@
+# modules/aws/vpc/variables.tf
+
 variable "tags" {}
 variable "vpc_cidr_block" {}
 variable "subnet_cidr_blocks" {}

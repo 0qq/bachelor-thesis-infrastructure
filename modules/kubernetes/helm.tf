@@ -1,3 +1,5 @@
+# modules/kubernetes/helm.tf
+
 provider "helm" {
   kubernetes {
     host                   = var.cluster_endpoint

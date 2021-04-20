@@ -1,3 +1,5 @@
+# modules/kubernetes/main.tf
+
 terraform {
   required_providers {
     kubernetes = {

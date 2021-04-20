@@ -1,3 +1,5 @@
+# modules/aws/ecr/outputs.tf
+
 output "url" {
   value = aws_ecr_repository.this.repository_url
 }

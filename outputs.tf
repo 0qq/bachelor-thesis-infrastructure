@@ -1,3 +1,5 @@
+# outputs.tf
+
 output "container_registry_username" {
   value = module.container_registry.username
 }

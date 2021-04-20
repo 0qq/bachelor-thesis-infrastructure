@@ -1,3 +1,5 @@
+# modules/aws/eks/variables.tf
+
 variable "subnet_ids" {
   type = list(any)
 }

@@ -1,3 +1,5 @@
+# main.tf
+
 locals {
   tags = var.tags
 }

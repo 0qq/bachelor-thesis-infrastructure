@@ -1,3 +1,5 @@
+# modules/gitlab/project/variable.tf
+
 variable "id" {}
 variable "cluster_name" {}
 variable "cluster_endpoint" {}

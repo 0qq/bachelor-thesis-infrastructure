@@ -1,3 +1,5 @@
+# modules/aws/eks/main.tf
+
 locals {
   tags = merge(var.tags, { Terraform_module = "eks" })
 }
