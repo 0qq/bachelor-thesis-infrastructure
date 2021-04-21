@@ -12,4 +12,3 @@ cluster_max_size       = 2
 gitlab_project_id = "25999080"
 
 container_registry_name = "server"
-
