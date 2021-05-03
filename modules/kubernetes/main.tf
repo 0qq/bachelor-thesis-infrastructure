@@ -59,10 +59,3 @@ resource "kubernetes_namespace" "stage" {
     name = "stage"
   }
 }
-
-
-# resource "kubernetes_namespace" "ingress" {
-#   metadata {
-#     name = "ingress-nginx"
-#   }
-# }

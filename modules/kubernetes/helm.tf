@@ -66,14 +66,3 @@ resource "helm_release" "load-balancer-controller" {
 
   depends_on = [var.cluster_node_group]
 }
-
-
-# resource "helm_release" "ingress" {
-#   name       = "ingress"
-#   repository = "https://kubernetes.github.io/ingress-nginx"
-#   chart      = "ingress-nginx"
-#   version    = "3.25.0"
-#   namespace  = kubernetes_namespace.ingress.metadata[0].name
-
-#   depends_on = [var.cluster_node_group]
-# }
