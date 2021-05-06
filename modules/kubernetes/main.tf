@@ -52,10 +52,3 @@ resource "kubernetes_namespace" "gitlab" {
     name = "gitlab"
   }
 }
-
-
-resource "kubernetes_namespace" "stage" {
-  metadata {
-    name = "stage"
-  }
-}
