@@ -26,13 +26,8 @@ resource "helm_release" "runner" {
     runnerRegistrationToken: "${var.gitlab_registration_token}"
     unregisterRunners: true
     rbac:
-      create: true
-      rules:
-        - resources: ["pods", "secrets"]
-          verbs: ["get", "list", "watch", "create", "patch", "delete"]
-        - apiGroups: [""]
-          resources: ["pods/exec"]
-          verbs: ["create", "patch", "delete"]
+      create: false
+      serviceAccountName: default
     runners:
       config: |
         [[runners]]
