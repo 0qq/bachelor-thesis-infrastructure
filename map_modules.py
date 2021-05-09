@@ -3,28 +3,29 @@
 import os
 
 
-def get_filepaths(suffix: str, directory: str) -> list[str]:
-    filepaths = list()
-    for dirpath, dirnames, files in os.walk(directory):
+def get_filepaths(suffix, directory):
+    for dirpath, _, files in os.walk(directory):
         for filename in files:
-            if filename.endswith(f'.{suffix}'):
-                filepaths.append(os.path.join(dirpath, filename))
-    return filepaths
+            _, ext = os.path.splitext(filename)
+            if ext == suffix:
+                yield (os.path.join(dirpath, filename))
 
 
-def append_filepath(filepath: str) -> bool:
+def append_filepath(filepath):
+    expected_first_line = f'# {filepath}\n'
+
     with open(filepath, 'r') as f:
-        appended = f.readline() == f'# {filepath}\n'
-        f.seek(0, 0)
+        if f.readline() == expected_first_line:
+            return
+        f.seek(0)
         orig_content = f.read()
-    if not appended:
-        with open(filepath, 'w') as f:
-            f.write(f'# {filepath}\n\n{orig_content}')
-    return appended
+
+    with open(filepath, 'w') as f:
+        f.write(expected_first_line + '\n' + orig_content)
 
 
 def main():
-    filepaths = get_filepaths("tf", "modules")
+    filepaths = get_filepaths(".json", "modules")
     for filepath in filepaths:
         append_filepath(filepath)
 
